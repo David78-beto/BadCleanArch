@@ -5,25 +5,26 @@ namespace Domain.Entities;
 
 public class Order
 {
-    // aqui puse propiedades porque sonar decia que no se deben usar campos publicos y asi queda mejor
+    // Propiedad que identifica la orden; se usa en lugar de campos públicos para cumplir buenas prácticas
     public int Id { get; set; }
 
-    // este es el nombre del cliente y lo deje asi para que sea facil de usar en otras partes
-    public string CustomerName { get; set; }
+    // Nombre del cliente que genera la orden; marcado como requerido para garantizar un valor válido
+    public required string CustomerName { get; set; }
 
-    // este es el nombre del producto que se esta pidiendo en la orden
-    public string ProductName { get; set; }
+    // Nombre del producto solicitado; también requerido para evitar valores nulos no deseados
+    public required string ProductName { get; set; }
 
-    // esta es la cantidad del producto que se pidio y se usa para calcular el total
+    // Cantidad de unidades del producto que se están ordenando
     public int Quantity { get; set; }
 
-    // este es el precio por unidad y sirve para calcular el total de la orden
+    // Precio por unidad, utilizado junto con la cantidad para sacar el total
     public decimal UnitPrice { get; set; }
 
     public void CalculateTotalAndLog()
     {
-        // aqui se calcula el total multiplicando la cantidad por el precio y luego se manda a un log
+        // Cálculo del total multiplicando unidades por el precio y envío del resultado al sistema de log
         var total = Quantity * UnitPrice;
         Infrastructure.Logging.Logger.Log("Total (maybe): " + total);
     }
 }
+  
